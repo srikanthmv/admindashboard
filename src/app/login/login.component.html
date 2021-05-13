@@ -1,0 +1,42 @@
+<div class="login-container">
+  <div class="login-form">
+    <mat-card class="login-info">
+      Login with <strong>email: admin@admin.com</strong>, <strong>password: admin </strong>
+    </mat-card>
+    <mat-card class="example-card">
+      <mat-card-header class="login-form-header">
+        <mat-card-title> Admin Login </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="login-form-content" [formGroup]="loginFg!">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="emailId" placeholder="Ex. pat@example.com">
+            <span matSuffix><mat-icon>email</mat-icon></span>
+            <mat-error *ngIf="emailId.hasError('email') && !emailId.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailId.hasError('required')">
+              Email is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.hasError('required')">
+              Please enter a valid password
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="login-footer-content">
+          <button mat-raised-button (click)="resetForm()">Reset</button>
+          <button mat-raised-button color="primary" (click)="loginAsAdmin()">Login</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

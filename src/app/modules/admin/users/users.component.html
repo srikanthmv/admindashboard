@@ -1,0 +1,93 @@
+<div class="manage-users-title-block">
+  <h1 class="mat-headline"><mat-icon>people</mat-icon> Manage Users</h1>
+</div>
+<div class="users-table-block">
+  <div class="user-bulk-actions-block">
+    <mat-form-field class="filter-input">
+      <mat-label>Search User</mat-label>
+      <input matInput [formControl]="filterTextInput"
+             (keyup)="applyFilter()"
+             placeholder="Search by id, name, email and role of user" #input>
+      <span matPrefix><mat-icon>search</mat-icon></span>
+    </mat-form-field>
+    <div class="right-actions-block">
+      <button (click)="resetFilters()"
+              mat-raised-button
+              color="primary">
+        <mat-icon>restart_alt</mat-icon> RESET FILTER
+      </button>
+    </div>
+  </div>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="usersList!" matSort>
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? toggleSelectAll() : null"
+                        [checked]="selection!.hasValue() && isAllSelected()"
+                        [indeterminate]="selection?.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="selectUser($event, row)"
+                        [checked]="selection!.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email-Id </th>
+        <td mat-cell *matCellDef="let row"> {{row?.email}} </td>
+      </ng-container>
+
+      <!-- Color Column -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+        <td mat-cell *matCellDef="let row" [style.color]="row.role"> {{row.role}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+        <td mat-cell *matCellDef="let row">
+          <button (click)="deleteSingleUser(row)" mat-icon-button color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+
+    <div class="user-footer-actions">
+      <div class="user-footer-left">
+        <button (click)="deleteSelectedUsers()" mat-raised-button color="warn" [disabled]="!selection?.selected?.length">
+          delete {{ selection?.selected?.length ? selection?.selected?.length : '' }} selected
+          {{ selection?.selected?.length! > 1 ? 'users' : 'user' }}
+        </button>
+      </div>
+      <mat-paginator
+        [length]="usersList?.data?.length"
+        [pageSizeOptions]="[10, 25, 100]"
+        (page)="paginationHandler($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

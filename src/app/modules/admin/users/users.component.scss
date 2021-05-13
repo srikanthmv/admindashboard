@@ -1,0 +1,37 @@
+table {
+  width: 100%;
+}
+
+.manage-users-title-block {
+  display: flex;
+  padding: 10px;
+  justify-content: flex-start;
+}
+
+.users-table-block {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  & .user-footer-actions {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    & .user-footer-left {
+      display: grid;
+      align-items: center;
+    }
+  }
+}
+
+.user-bulk-actions-block {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  & .filter-input {
+    width: 60%;
+  }
+  & .right-actions-block {
+    display: grid;
+    align-items: center;
+  }
+}
