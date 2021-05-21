@@ -134,8 +134,7 @@ export class UsersComponent implements OnInit {
           this.setPaginationAndSorting();
           if (this.selection?.selected !== undefined) {
             this.notificationBar.open(
-              `${ this.listOfUsersToDelete.length > 1 ?
-                this.listOfUsersToDelete.length : ''} user${this.listOfUsersToDelete.length > 1 ? 's' : ''} deleted successfully`,
+              `user${this.listOfUsersToDelete.length > 1 ? 's' : ''} deleted successfully`,
               'dismiss');
           }
         }

@@ -6,9 +6,9 @@ import {UsersComponent} from './users/users.component';
 import {AuthenticationGuard} from '../../guards/authentication.guard';
 
 const routes: Routes = [
-  {path: '', component: AdminComponent, canActivateChild: [AuthenticationGuard],
+  {path: '', component: AdminComponent,
   children: [
-    {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+    {path: '', redirectTo: 'users', pathMatch: 'full'},
     {path: 'dashboard', component: DashboardComponent},
     {path: 'users', component: UsersComponent}
   ]}
